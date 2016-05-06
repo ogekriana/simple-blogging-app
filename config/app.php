@@ -157,6 +157,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         'Collective\Html\HtmlServiceProvider',
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
 
     ],
 
@@ -206,6 +207,7 @@ return [
 
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+        'Moloquent' => 'Jenssegers\Mongodb\Model',
 
     ],
 

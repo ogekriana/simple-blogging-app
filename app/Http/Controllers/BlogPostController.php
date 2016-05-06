@@ -9,6 +9,8 @@ use Response;
 use Event;
 use App\Events\CountView;
 
+use App\PublishedPost;
+
 
 class BlogPostController extends Controller
 {
@@ -146,6 +148,6 @@ class BlogPostController extends Controller
     {
         BlogPost::destroy($request->post);
         return Response::json(['message' => 'Post Deleted Succesfully']);
-    }
+    }    
 
 }

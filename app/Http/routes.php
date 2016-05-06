@@ -35,6 +35,10 @@ Route::group(['prefix' => 'api/v1/'], function(){
 	])->where('post', '[0-9]+');
 
 
+	Route::get('posts/all','PublishedPostController@getAllPosts');
+	Route::post('syncposts','PublishedPostController@syncAllPublished');
+
+
 	//get pots by user
 	Route::get('users/{user}/posts', [
 		'as' => 'users.post.all',
