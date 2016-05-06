@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\BlogPost;
 use App\Http\Requests;
 use Response;
-use Event;
-use App\Events\CountView;
 
 use App\PublishedPost;
 
@@ -81,10 +79,7 @@ class BlogPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request){
-        if(\Auth::guest()){
-            Event::fire(new CountView($request->post));
-        }
+    public function show(Request $request){        
 
         $blogPost = BlogPost::find($request->post); 
 

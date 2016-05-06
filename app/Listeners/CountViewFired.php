@@ -27,8 +27,11 @@ class CountViewFired
      */
     public function handle(CountView $event)
     {
-        $blogPost = BlogPost::find($event->postId);
-        $blogPost->count_view = (int)$blogPost->count_view + 1;
-        $blogPost->save();
+        $post = \DB::connection('mongodb')->collection('user_posts')
+            ->find((int)$event->postId);
+                
+        \DB::connection('mongodb')->collection('user_posts')
+          ->where('_id', (int)$event->postId)
+          ->update(array('count_view' => $post['count_view'] + 1));
     }
 }

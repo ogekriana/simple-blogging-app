@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Response;
 use App\Http\Requests;
 use App\BlogPost;
+use Event;
+use App\Events\CountView;
 
 class PublishedPostController extends Controller
 {
@@ -13,7 +15,9 @@ class PublishedPostController extends Controller
     protected $collection = 'user_posts';
 
     public function getAllPosts(){
-        $blogPosts = \DB::connection($this->connection)->collection($this->collection)->get();
+        $blogPosts = \DB::connection($this->connection)->collection($this->collection)
+            ->orderBy('post_date', 'desc')
+            ->get();
         return Response::json([
                     'data' => $blogPosts
             ]);
@@ -36,5 +40,23 @@ class PublishedPostController extends Controller
 	    					)
 	    			));	    	
     	}
+    }
+
+    public function getPost(Request $request){																																																																																																																												
+    	if(\Auth::guest()){
+            Event::fire(new CountView($request->post));
+        }
+    	$post = \DB::connection($this->connection)->collection($this->collection)
+            ->find((int)$request->post);
+
+        if(!$post){
+            return Response::json([
+                'error' => [
+                    'message' => 'Post doesn\'t exist'
+                ]
+            ], 404);
+        }        
+
+        return Response::json(['data' => $post], 200);
     }
 }

@@ -106,4 +106,19 @@ blogAppServices.service('homepageService', ['$http', function($http){
 			});
 	};
 
+	this.getSinglePost = function(postId){		
+		var endpoint = '/api/v1/single-post/'+postId;
+		
+		return $http({
+			method: 'GET',
+			url: endpoint
+		})
+		.success(function(data){
+			return data;
+		})
+		.error(function(data){
+			return data;
+		});
+	};
+
 }]);

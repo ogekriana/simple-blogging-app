@@ -36,7 +36,7 @@ Route::group(['prefix' => 'api/v1/'], function(){
 
 
 	Route::get('posts/all','PublishedPostController@getAllPosts');
-	Route::post('syncposts','PublishedPostController@syncAllPublished');
+	Route::get('single-post/{post}','PublishedPostController@getPost');
 
 
 	//get pots by user

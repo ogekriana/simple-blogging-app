@@ -17,7 +17,7 @@
                         <p>Posted on <% post.post_date %> by <% post.author.name %></p>
                         <p><% post.post_content %></p>
                         <div>                            
-                            <div style="float:right"><% post.count_view %> view</div>
+                            <div style="float:right"><% post.count_view %> view(s)</div>
                         </div>
                         
                     </div>

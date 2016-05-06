@@ -142,7 +142,7 @@ blogAppController.controller('updatePostCtrl', ['$scope','$window','postService'
 	}
 }]);	
 
-blogAppController.controller('homepageCtrl', ['$scope','$window','homepageService', 'postService', '$uibModal', '$log', '$http', function($scope, $window, $homepageService, $postService, $uibModal, $log, $http){
+blogAppController.controller('homepageCtrl', ['$scope','$window','homepageService', '$uibModal', '$log', '$http', function($scope, $window, $homepageService, $uibModal, $log, $http){
 	$scope.stat = false;
 	$scope.init = function(){
 		$homepageService.getPublishedPost('published').then(function(response){
@@ -155,7 +155,7 @@ blogAppController.controller('homepageCtrl', ['$scope','$window','homepageServic
 
 	$scope.postDetail = function(postId){
 		$scope.stat = true;
-		$postService.getPostById(postId).then(function(response){
+		$homepageService.getSinglePost(postId).then(function(response){
 			$scope.publishedPost = response.data;
 		});
 	}	
