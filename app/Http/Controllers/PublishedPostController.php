@@ -26,6 +26,7 @@ class PublishedPostController extends Controller
 	    		->insert(array(
 	    				'_id' => $key->id,
 	    				'post_date' => $key->post_date,
+	    				'post_title' => $key->post_title,
 	    				'post_content' => $key->post_content,
 	    				'post_status' => $key->post_status,
 	    				'count_view' => $key->count_view,

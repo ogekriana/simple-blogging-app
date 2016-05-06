@@ -93,7 +93,7 @@ blogAppServices.service('postService', ['$http', function($http){
 blogAppServices.service('homepageService', ['$http', function($http){
 
 	this.getPublishedPost =function(status){
-		var endpoint = '/api/v1/posts?status='+status;
+		var endpoint = '/api/v1/posts/all';
 	    return $http({
 				method: 'GET',
 				url: endpoint
