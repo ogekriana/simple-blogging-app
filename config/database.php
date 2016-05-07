@@ -65,11 +65,8 @@ return [
             'host' => env('MONGODB_HOST', 'localhost'),
             'port' => env('MONGODB_PORT', '27017'),
             'database' => env('MONGODB_DATABASE', 'blogpost'),
-            'username' => env('DB_USERNAME', 'bloguser'),
-            'password' => env('DB_PASSWORD', 'bloguserpassword'),
-            'options' => array(
-                'db' => 'admin' // sets the authentication database required by mongo 3
-            )
+            'username' => env('MONGODB_USERNAME', 'bloguser'),
+            'password' => env('MONGODB_PASSWORD', 'bloguserpassword')
         ],
 
     ],

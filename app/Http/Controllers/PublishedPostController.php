@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\BlogPost;
 use Event;
 use App\Events\CountView;
+use Carbon\Carbon;
 
 class PublishedPostController extends Controller
 {
@@ -58,5 +59,47 @@ class PublishedPostController extends Controller
         }        
 
         return Response::json(['data' => $post], 200);
+    }
+
+    public function syncUpdatedPosts(){
+        $datetime_from = (new Carbon(date('Y-m-d H:i:s')))->subMinutes(1)->format('Y-m-d H:i:s');
+        $dbPosts = BlogPost::with('users')
+            ->where('post_status', '=', 'published')
+            ->where('updated_at', '>', $datetime_from)
+            ->get();
+        foreach ($dbPosts as $dbPost) {
+            $mongoPost = \DB::connection($this->connection)->collection($this->collection)
+            ->find($dbPost->id);  
+            if(!$mongoPost){
+                \DB::connection($this->connection)->collection($this->collection)
+                    ->insert(array(
+                        '_id' => $dbPost->id,
+                        'post_date' => $dbPost->post_date,
+                        'post_title' => $dbPost->post_title,
+                        'post_content' => $dbPost->post_content,
+                        'post_status' => $dbPost->post_status,
+                        'count_view' => $dbPost->count_view,
+                        'author' => array(
+                                'user_id' => $dbPost->users->id,
+                                'name' => $dbPost->users->name
+                            )
+                    ));     
+            }else{
+                \DB::connection($this->connection)->collection($this->collection)
+                    ->where('_id', $dbPost->id)
+                    ->update(array(
+                        'post_date' => $dbPost->post_date,
+                        'post_title' => $dbPost->post_title,
+                        'post_content' => $dbPost->post_content,
+                        'post_status' => $dbPost->post_status,
+                        'count_view' => $dbPost->count_view,
+                        'author' => array(
+                                'user_id' => $dbPost->users->id,
+                                'name' => $dbPost->users->name
+                            )
+                    ));
+            }
+        }
+        return $dbPosts;
     }
 }
