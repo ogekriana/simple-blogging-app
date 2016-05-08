@@ -143,6 +143,21 @@ blogAppController.controller('updatePostCtrl', ['$scope','$window','postService'
 }]);	
 
 blogAppController.controller('homepageCtrl', ['$scope','$window','homepageService', '$uibModal', '$log', '$http', function($scope, $window, $homepageService, $uibModal, $log, $http){
+	
+	$scope.dt = [{id:1,title:"title1",content:"content1",caption:"caption1"},{id:2,title:"title2",content:"content2",caption:"caption2"}];
+	$scope.share = function(data){
+	    FB.ui(
+	    {
+	        method: 'feed',
+	        name: data.post_title,
+	        link: data.url,
+	        picture: 'http://dummyimage.com/600x400/000/fff&text=image',
+	        caption: 'caption',
+	        description: data.post_content,
+	        message: ''
+	    });
+	}
+
 	$scope.stat = false;
 	$scope.init = function(){
 		$homepageService.getPublishedPost('published').then(function(response){

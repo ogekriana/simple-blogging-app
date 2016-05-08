@@ -66,6 +66,7 @@ class BlogPostController extends Controller
         }else{
             $blogPost = BlogPost::create($attributes);
 
+            $this->setGeneratedUrl($blogPost->id);
             return Response::json([
                     'message' => 'Post Created Succesfully',
                     'data' => $blogPost
@@ -79,9 +80,9 @@ class BlogPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request){        
+    public function show($id){        
 
-        $blogPost = BlogPost::find($request->post); 
+        $blogPost = BlogPost::find($id); 
 
         if(!$blogPost){
             return Response::json([
@@ -145,4 +146,9 @@ class BlogPostController extends Controller
         return Response::json(['message' => 'Post Deleted Succesfully']);
     }    
 
+    public function setGeneratedUrl($id){
+        $postData = $this->show($id)->getData();
+        $uri = env('APP_URL').'/'.$postData->data->id.'/'.str_slug($postData->data->post_title, '-');
+        $postUpdated = BlogPost::where('id', $id)->update(['url' => $uri]);
+    }
 }

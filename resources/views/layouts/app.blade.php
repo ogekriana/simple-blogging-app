@@ -5,7 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <meta property="og:url" content="www.simpleblog.dev/dashboard" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Simple Blog | Article" />
+    <meta property="og:description" content="Just a simple blogging website for learning purpose" />
+    <meta property="og:image" content="" />
+
+    <title>Simple Blog</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -26,6 +32,19 @@
     </style>
 </head>
 <body id="app-layout" ng-app="blogApp">
+    <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+            FB.init({appId: '1562556027377145', status: true, cookie: true,
+            xfbml: true});
+        };
+        (function() {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+            '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+        }());
+      </script>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -41,7 +60,8 @@
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Simple Blog
-                </a>
+                </a>                
+
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">

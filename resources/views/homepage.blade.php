@@ -3,7 +3,7 @@
 @section('content')
 <div class="container" ng-controller="homepageCtrl">
     <div class="row">
-        <div class="col-md-12">                        
+        <div class="col-md-12">                      
             <div ng-repeat="post in publishedPost">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -16,7 +16,8 @@
                     <div class="panel-body">
                         <p>Posted on <% post.post_date %> by <% post.author.name %></p>
                         <p><% post.post_content %></p>
-                        <div>                            
+                        <div> 
+                            <a href="javascript:void(0)" ng-click="share(post)">SHARE</a>
                             <div style="float:right"><% post.count_view %> view(s)</div>
                         </div>
                         
@@ -27,4 +28,5 @@
         </div>
     </div>
 </div>
+
 @endsection
