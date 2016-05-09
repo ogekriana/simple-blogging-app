@@ -110,4 +110,10 @@ class PublishedPostController extends Controller
         $postData = $this->getPost($id)->getData();
         return \View::make('article_detail', ['article' => $postData->data]);
     }
+
+    public function deleteRecord($id){
+        \DB::connection($this->connection)->collection($this->collection)
+            ->where('_id', (int)$id)
+            ->delete();
+    }
 }

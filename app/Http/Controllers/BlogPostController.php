@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\BlogPost;
 use App\Http\Requests;
 use Response;
-
 use App\PublishedPost;
+use App\Http\Controllers\PublishedPostController;
 
 
 class BlogPostController extends Controller
@@ -141,10 +141,16 @@ class BlogPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        BlogPost::destroy($request->post);
-        return Response::json(['message' => 'Post Deleted Succesfully']);
+        
+        $deleted = BlogPost::destroy($id);
+        $mongoRecord = new PublishedPostController();
+        $mongoRecord->deleteRecord($id);
+        if(!$deleted)
+            return Response::json(['message' => 'Post Not found']);
+        else
+            return Response::json(['message' => 'Post Deleted Succesfully']);
     }    
 
     public function setGeneratedUrl($id){

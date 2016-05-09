@@ -38,6 +38,7 @@ Route::group(['prefix' => 'api/v1/'], function(){
 
 	Route::get('posts/all','PublishedPostController@getAllPosts');
 	Route::get('single-post/{post}','PublishedPostController@getPost');
+	Route::delete('deletepost/{post}','PublishedPostController@deleteRecord');
 
 
 	//get pots by user
