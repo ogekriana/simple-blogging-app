@@ -146,13 +146,14 @@ blogAppController.controller('homepageCtrl', ['$scope','$window','homepageServic
 	
 	$scope.dt = [{id:1,title:"title1",content:"content1",caption:"caption1"},{id:2,title:"title2",content:"content2",caption:"caption2"}];
 	$scope.share = function(data){
+
 	    FB.ui(
 	    {
 	        method: 'feed',
 	        name: data.post_title,
 	        link: data.url,
-	        picture: 'http://dummyimage.com/600x400/000/fff&text=image',
-	        caption: 'caption',
+	        picture: 'http://dummyimage.com/200x200/000/fff&text=image',
+	        caption: 'www.simpleblog.dev',
 	        description: data.post_content,
 	        message: ''
 	    });

@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/dashboard', 'HomeController@index');
+Route::get('/post/{id}/{slug}', 'PublishedPostController@detail');
 
 Route::group(['prefix' => 'api/v1/'], function(){
 	//get post by post id

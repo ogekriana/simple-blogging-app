@@ -127,6 +127,7 @@ class BlogPostController extends Controller
             $blogPost->post_status = $request->post_status;
             $blogPost->save();
 
+            $this->setGeneratedUrl($request->post);
             return Response::json([
                     'message' => 'Post Updated Succesfully',
                     'data' => $blogPost
@@ -148,7 +149,8 @@ class BlogPostController extends Controller
 
     public function setGeneratedUrl($id){
         $postData = $this->show($id)->getData();
-        $uri = env('APP_URL').'/'.$postData->data->id.'/'.str_slug($postData->data->post_title, '-');
+        $uri = env('APP_URL').'/post/'.$postData->data->id.'/'.str_slug($postData->data->post_title, '-');
         $postUpdated = BlogPost::where('id', $id)->update(['url' => $uri]);
     }
+    
 }

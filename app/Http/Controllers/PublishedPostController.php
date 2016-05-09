@@ -35,6 +35,7 @@ class PublishedPostController extends Controller
 	    				'post_content' => $key->post_content,
 	    				'post_status' => $key->post_status,
 	    				'count_view' => $key->count_view,
+                        'url' => $key->url,
 	    				'author' => array(
 	    						'user_id' => $key->users->id,
 	    						'name' => $key->users->name
@@ -43,12 +44,12 @@ class PublishedPostController extends Controller
     	}
     }
 
-    public function getPost(Request $request){																																																																																																																												
+    public function getPost($id){																																																																																																																												
     	if(\Auth::guest()){
-            Event::fire(new CountView($request->post));
+            Event::fire(new CountView($id));
         }
     	$post = \DB::connection($this->connection)->collection($this->collection)
-            ->find((int)$request->post);
+            ->find((int)$id);
 
         if(!$post){
             return Response::json([
@@ -79,6 +80,7 @@ class PublishedPostController extends Controller
                         'post_content' => $dbPost->post_content,
                         'post_status' => $dbPost->post_status,
                         'count_view' => $dbPost->count_view,
+                        'url' => $dbPost->url,
                         'author' => array(
                                 'user_id' => $dbPost->users->id,
                                 'name' => $dbPost->users->name
@@ -93,6 +95,7 @@ class PublishedPostController extends Controller
                         'post_content' => $dbPost->post_content,
                         'post_status' => $dbPost->post_status,
                         'count_view' => $dbPost->count_view,
+                        'url' => $dbPost->url,
                         'author' => array(
                                 'user_id' => $dbPost->users->id,
                                 'name' => $dbPost->users->name
@@ -101,5 +104,10 @@ class PublishedPostController extends Controller
             }
         }
         return $dbPosts;
+    }
+
+    public function detail($id){   
+        $postData = $this->getPost($id)->getData();
+        return \View::make('article_detail', ['article' => $postData->data]);
     }
 }

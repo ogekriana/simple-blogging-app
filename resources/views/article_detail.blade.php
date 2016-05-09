@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Simple Blog</title>
+    <title>Simple Blog | {{ $article->post_title }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -87,8 +87,28 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+    	<div class="row">
+	    	<div class="col-md-12">
+	    		<div class="article-body">
+	    			<div class="article-title" style="font-size:40px">
+		    			<p>{{ $article->post_title }}</p>
+		    		</div>
+		    		<div class="article-date-author">
+		    			<p>Posted on {{ $article->post_date }} by {{ $article->author->name }}</p>
+		    		</div>
+		    		<hr>
+		    		<div class="article-content" style="text-align:justify; font-size:20px">
+		    			<p>{{ $article->post_content }}</p>
+		    		</div>		    		
+	    		</div>	
+	    		<div class="article-view" style="text-align:right; padding-right:20px">
+		    		<p>{{ $article->count_view }} View(s)</p>
+		    	</div>	    		    	
+	    	</div>
+	    </div>  
+    </div>      
 
-    @yield('content')
     <!-- JavaScripts -->        
     {!! Html::script('js/angular.min.js') !!}        
     {!! Html::script('js/angular-route.min.js') !!}
